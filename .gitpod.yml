@@ -1,0 +1,23 @@
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  - port: 3306
+    onOpen: ignore
+  - port: 3035
+    onOpen: ignore
+  - port: 5432
+    onOpen: ignore
+  - port: 6379
+    onOpen: ignore
+  - port: 9200
+    onOpen: ignore
+
+tasks:
+  - command: redis-server
+  - command: /home/gitpod/elasticsearch-7.5.2/bin/elasticsearch
+  - command: 'sudo docker-up'
+  - init: "mysql -e \"create database gateway;CREATE USER 'test'@'%' IDENTIFIED WITH mysql_native_password BY 'test';GRANT ALL PRIVILEGES ON *.* TO 'test'@'%';FLUSH PRIVILEGES;\""
+    command: "bash ./start-db.sh"
+  - init: 'bash ./init.sh'
+    command: 'bash ./start.sh'
