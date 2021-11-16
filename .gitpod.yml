@@ -16,8 +16,8 @@ ports:
 tasks:
   - command: redis-server
   - command: /home/gitpod/elasticsearch-7.5.2/bin/elasticsearch
-  - command: 'sudo docker-up'
-  - init: "mysql -e \"create database gateway;CREATE USER 'test'@'%' IDENTIFIED WITH mysql_native_password BY 'test';GRANT ALL PRIVILEGES ON *.* TO 'test'@'%';FLUSH PRIVILEGES;\""
+#   - command: 'sudo docker-up'
+  - init: "sleep 5s && ysql -e \"create database gateway;CREATE USER 'test'@'%' IDENTIFIED WITH mysql_native_password BY 'test';GRANT ALL PRIVILEGES ON *.* TO 'test'@'%';FLUSH PRIVILEGES;\""
     command: "bash ./start-db.sh"
   - init: 'bash ./init.sh'
     command: 'bash ./start.sh'
